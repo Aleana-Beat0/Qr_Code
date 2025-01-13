@@ -1,14 +1,9 @@
-import cv2
 import streamlit as st
+from webcam import webcam
 
-st.title("Webcam Live Feed")
-run = st.checkbox('Run')
-FRAME_WINDOW = st.image([])
-camera = cv2.VideoCapture(0)
-
-while run:
-    _, frame = camera.read()
-    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    FRAME_WINDOW.image(frame)
+captured_image = webcam()
+if captured_image is None:
+    st.write("Waiting for capture...")
 else:
-    st.write('Stopped')
+    st.write("Got an image from the webcam:")
+    st.image(captured_image)
