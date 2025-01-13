@@ -2,6 +2,7 @@ import streamlit as st
 from webcam import webcam
 
 captured_image = webcam()
+
 if captured_image is None:
     st.write("Waiting for capture...")
 else:
