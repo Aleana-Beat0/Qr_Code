@@ -2,6 +2,7 @@ import pandas as pd
 import cv2
 from pyzbar.pyzbar import decode
 import numpy as np
+import append
 
 def scan_qr_code():
     global qr_data
@@ -52,23 +53,58 @@ def scan_qr_code():
 
 
 if __name__ == "__main__":
-    scan_qr_code()
-
-    if "SP99" in qr_data:
-        print("You are approved")
-    else:
-        print("You are rejected")
-'''
-    sheet=pd.read_excel("sheet.xlsx", "Google sheet")
-    for index, r in sheet.iterrows():
-        names = r['Full Name']
-        #print(names)
+ 
+    banana = True
+    while banana:
+        scan_qr_code()
 
 
-        if qr_data == names:
-            print("horray, welcome")
+        used_qr_codes = set()
+
+        found_match = False
+
+        #RECHANGED THE NAMES HERE
+        #SHEET - names_SP.xlsx
+        #logsheet = append.xlsx
+        sheet = pd.read_excel("names_SP.xlsx", "Sheet1")
+        logsheet = pd.read_excel("append.xlsx", "Sheet1")
+
+        names = sheet.iloc[:, 0].tolist()
+
+        print(qr_data)
+
+        if qr_data in names:
+            found_match = True
+            if qr_data in logsheet['Name'].values:
+                print("Error: This QR code has already been used.")
+                
+            else:
+                append.log(qr_data)
+                print("Horray, welcome!")
+            
+        else:
+            print("You are not part of the party.")
+
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            banana = False
             break
+
 '''
+To dos:
+idk fix the repetative loop thing cuz it's not stopping
+find a way that enables it to stop once it sees the values
+
+
+
+#password with settings
+
+        if "SP99" in qr_data:
+            print("You are approved")
+        else:
+            print("You are rejected")
+
+'''
+
 
 
 

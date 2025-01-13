@@ -12,10 +12,10 @@ sheet=pd.read_excel("sheet.xlsx", "Google sheet")
 
 for index, r in sheet.iterrows():
     names = r['Full Name']
-    approved_names = names + 'SP99'
+    approved_names = names
     print(approved_names)
     
-    createqr(approved_names, 'SP99')
+    #createqr(approved_names,'0')
 
 
 
