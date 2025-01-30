@@ -4,7 +4,7 @@ from pyzbar.pyzbar import decode
 import numpy as np
 
 #append is more on the time that they came in 
-import append
+import time
 
 def scan_qr_code():
     global qr_data
@@ -88,7 +88,7 @@ if __name__ == "__main__":
                 print("Error: This QR code has already been used.")
                 
             else:
-                append.log(qr_data)
+                time.log(qr_data)
                 print("Horray, welcome!")
             
         else:
