@@ -1,3 +1,5 @@
+#generates the QR With special Codes 
+
 import pandas as pd 
 from creator import createqr
 import random
@@ -30,16 +32,18 @@ def log(name, special_code):
 
 
 
-# Read a comma separated values (CSV) files into a variable
-# as a pandas DataFrame
 
-
+#uploading the participants names
 sheet=pd.read_excel("names.xlsx", "Sheet1")
 
+
 for index, r in sheet.iterrows():
+    #ensure this is the sheet name
     names = r['Full Name']
     
-    print(names)
+    #Debugger for names aren't printing
+    #print(names)
+
     #Generates random Strings of code
     chars = string.ascii_letters + string.digits
     random_string = ''.join(random.choice(chars) for _ in range(5))
