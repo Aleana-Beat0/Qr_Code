@@ -1,3 +1,6 @@
+#Current web based for generating the qr code -- work in progress
+
+
 import streamlit as st
 import pandas as pd
 import tempfile
