@@ -2,6 +2,8 @@ import pandas as pd
 import cv2
 from pyzbar.pyzbar import decode
 import numpy as np
+
+#append is more on the time that they came in 
 import append
 
 def scan_qr_code():
@@ -63,10 +65,13 @@ if __name__ == "__main__":
 
         found_match = False
 
-        #RECHANGED THE NAMES HERE
-        #SHEET - names_SP.xlsx
-        #logsheet = append.xlsx
+
+        #Reminder that the sheet name should be the same 
+
+        #Name of the participants with the special codes
         sheet = pd.read_excel("names_SP.xlsx", "Sheet1")
+        
+        #log sheet on when the qr got scanned
         logsheet = pd.read_excel("append.xlsx", "Sheet1")
 
         names = sheet.iloc[:, 0].tolist()
