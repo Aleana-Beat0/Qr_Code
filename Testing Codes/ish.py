@@ -75,7 +75,7 @@ def create_zip_from_images(image_paths, zip_filename):
 # Streamlit UI
 st.title("QR Code Generator - Select Row Range from Google Sheets")
 
-# Google Sheets URL
+# Input for Google Sheets URL
 url = st.text_input("Enter the Google Sheets URL:")
 
 # Button to confirm the link
@@ -100,70 +100,74 @@ if st.button("Confirm Link"):
     else:
         st.warning("Please enter a Google Sheets URL.")
 
+# Use session state to remember row selections
+if 'start_row' not in st.session_state:
+    st.session_state['start_row'] = 0
+if 'end_row' not in st.session_state:
+    st.session_state['end_row'] = 0
 
-# Set up the connection to Google Sheets using streamlit_gsheets
-conn = st.connection("gsheets", type=GSheetsConnection)
+# If the user has provided a valid sheet, show further options to select rows and generate QR codes
+if url and st.button("Proceed with QR Code Generation"):
+    try:
+        conn = st.connection("gsheets", type=GSheetsConnection)
+        data = conn.read(spreadsheet=url)
 
-# Read data from the Google Sheet
-data = conn.read(spreadsheet=url)
+        # Proceed if 'Full Name' column exists
+        if 'Full Name' in data.columns:
+            # Get the total number of rows
+            num_rows = len(data)
 
-# Show the data (you can modify this to select only the necessary columns)
-st.write(data)
-
-# Column name where full names are stored (you can change this if the column name is different)
-if 'Full Name' in data.columns:
-    # Get the total number of rows
-    num_rows = len(data)
-
-    # Number input for selecting the start and end row
-    start_row = st.number_input(
-        "Enter the start row number (inclusive)",
-        min_value=0,
-        max_value=num_rows - 1,
-        value=0,  # Default to the first row
-        step=1
-    )
-
-    end_row = st.number_input(
-        "Enter the end row number (inclusive)",
-        min_value=start_row,
-        max_value=num_rows - 1,
-        value=num_rows - 1,  # Default to the last row
-        step=1
-    )
-
-    # Validate the row numbers
-    if start_row <= end_row:
-        # Create a temporary directory to store the images
-        temp_dir = tempfile.mkdtemp()
-
-        # Store paths to all generated images
-        image_paths = []
-
-        # Generate the QR codes for each selected row in the range
-        for row_index in range(start_row, end_row + 1):
-            name = data.loc[row_index, 'Full Name']
-            image_path = createqr(name.strip(), "", temp_dir)
-            image_paths.append(image_path)
-
-        # Create a zip file containing all the QR code images
-        zip_filename = "qr_codes.zip"
-        zip_file = create_zip_from_images(image_paths, zip_filename)
-
-        # Allow the user to download the zip file
-        with open(zip_file, "rb") as f:
-            st.download_button(
-                label="Download QR Code ZIP",
-                data=f,
-                file_name=zip_filename,
-                mime="application/zip"
+            # Persisting the state of start_row and end_row using session_state
+            st.session_state['start_row'] = st.number_input(
+                "Enter the start row number (inclusive)",
+                min_value=0,
+                max_value=num_rows - 1,
+                value=st.session_state['start_row'],  # Remember the value
+                step=1
             )
 
-        # Clean up temporary directory (optional)
-        for image_path in image_paths:
-            os.remove(image_path)  # Remove individual images
-        os.rmdir(temp_dir)  # Remove the temporary directory
-    else:
-        st.warning("The start row must be less than or equal to the end row.")
-else:
-    st.warning("The column 'Full Name' was not found in the uploaded sheet.")
+            st.session_state['end_row'] = st.number_input(
+                "Enter the end row number (inclusive)",
+                min_value=st.session_state['start_row'],
+                max_value=num_rows - 1,
+                value=st.session_state['end_row'],  # Remember the value
+                step=1
+            )
+
+            # Validate the row numbers
+            if st.session_state['start_row'] <= st.session_state['end_row']:
+                # Create a temporary directory to store the images
+                temp_dir = tempfile.mkdtemp()
+
+                # Store paths to all generated images
+                image_paths = []
+
+                # Generate the QR codes for each selected row in the range
+                for row_index in range(st.session_state['start_row'], st.session_state['end_row'] + 1):
+                    name = data.loc[row_index, 'Full Name']
+                    image_path = createqr(name.strip(), "", temp_dir)
+                    image_paths.append(image_path)
+
+                # Create a zip file containing all the QR code images
+                zip_filename = "qr_codes.zip"
+                zip_file = create_zip_from_images(image_paths, zip_filename)
+
+                # Allow the user to download the zip file
+                with open(zip_file, "rb") as f:
+                    st.download_button(
+                        label="Download QR Code ZIP",
+                        data=f,
+                        file_name=zip_filename,
+                        mime="application/zip"
+                    )
+
+                # Clean up temporary directory (optional)
+                for image_path in image_paths:
+                    os.remove(image_path)  # Remove individual images
+                os.rmdir(temp_dir)  # Remove the temporary directory
+            else:
+                st.warning("The start row must be less than or equal to the end row.")
+        else:
+            st.warning("The column 'Full Name' was not found in the Google Sheet.")
+    except Exception as e:
+        st.error(f"Error: {e}")

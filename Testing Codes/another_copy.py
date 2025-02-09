@@ -55,12 +55,12 @@ if st.button("Generate QR Code"):
         
 
 # Show files in the temporary directory
-# files_in_temp = os.listdir(temp_dir.name)
-# print("something ig", files_in_temp)
-# if files_in_temp:
-#     st.write("Generated QR Codes:")
-#     for file in files_in_temp:
-#         st.write(f"- {file}")
+files_in_temp = os.listdir(temp_dir.name)
+print("something ig", files_in_temp)
+if files_in_temp:
+    st.write("Generated QR Codes:")
+    for file in files_in_temp:
+        st.write(f"- {file}")
 
 # Download all files as a ZIP
 if st.button("Download All QR Codes as ZIP"):

@@ -54,8 +54,9 @@ def createqr(data,rmdata):
     # Draw the text onto the final image
     draw.text(text_position, new_data, font=font, fill="black")
 
-    #renamed path folder to 2
+    #path folder where the generating of qr code will be going
     path_folder = 'C:/Users/alean/OneDrive/Desktop/python/Qr_Code_Project/ACreation_QR_Code/Qr_Codes_Finish'
+    
     name_image = os.path.join(path_folder, new_data + ".png")
 
     # Save the final image
