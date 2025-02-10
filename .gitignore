@@ -1,1 +1,6 @@
 #this is how you comment in .gitignore
+
+\.devcontainer
+\Testing_Codes
+\qrcode
+\current
