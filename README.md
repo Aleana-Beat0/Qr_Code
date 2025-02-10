@@ -8,10 +8,10 @@ This project consists of two different files.
 - create a virtual environment
 
 - Download all necessary requirements
-' pip install -r requirements.txt '
+`pip install -r requirements.txt`
 
 ## Step 2: Generation of QR Code - ACreation-QR-Code
 
 Main programs:
-[Generates the QR without the special code - It only generates with it's name][https://github.com/Aleana-Beat0/Qr_Code/blob/c4fed838d6ea797334f077ae8394a01c14bb04bb/ACreation_QR_Code/generates_QR._WSP.py] 
+[Generates the QR without the special code - It only generates with it's name](https://github.com/Aleana-Beat0/Qr_Code/blob/c4fed838d6ea797334f077ae8394a01c14bb04bb/ACreation_QR_Code/generates_QR._WSP.py)
 
