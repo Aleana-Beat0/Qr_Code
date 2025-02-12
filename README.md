@@ -19,7 +19,7 @@ You can choose either from the program:
 [Generates the QR without the special code - It only generates with it's name](https://github.com/Aleana-Beat0/Qr_Code/blob/c4fed838d6ea797334f077ae8394a01c14bb04bb/ACreation_QR_Code/generates_QR._WSP.py)
 [Generates the QR WITH the special code](https://github.com/Aleana-Beat0/Qr_Code/blob/main/ACreation_QR_Code/generates_QR_SC.py)
 
-** Getting the participants name: **
+**Getting the participants name:**
 This file is for the names of the participants. It can come from the google sheet, google forms, typeforms, or any file that has been converted to an xlsx file. 
 ````
 #uploading the participants names
