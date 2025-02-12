@@ -2,5 +2,5 @@
 # just add the file name and the location - please do not add a dash in the end
 qrcode
 current
-_pycache_
+__pycache__
 .devcontainer
