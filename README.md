@@ -16,8 +16,9 @@ Note: This can only run locally as of the moment. I'm still developing the featu
 
 You can choose either from the program:
 
-[Generates the QR without the special code - It only generates with it's name](https://github.com/Aleana-Beat0/Qr_Code/blob/c4fed838d6ea797334f077ae8394a01c14bb04bb/ACreation_QR_Code/generates_QR._WSP.py)
-[Generates the QR WITH the special code](https://github.com/Aleana-Beat0/Qr_Code/blob/main/ACreation_QR_Code/generates_QR_SC.py)
+* [Generates the QR without the special code - It only generates with it's name](https://github.com/Aleana-Beat0/Qr_Code/blob/c4fed838d6ea797334f077ae8394a01c14bb04bb/ACreation_QR_Code/generates_QR._WSP.py)
+* [Generates the QR WITH the special code](https://github.com/Aleana-Beat0/Qr_Code/blob/main/ACreation_QR_Code/generates_QR_SC.py)
+
 
 **Getting the participants name:**
 This file is for the names of the participants. It can come from the google sheet, google forms, typeforms, or any file that has been converted to an xlsx file. 
@@ -35,6 +36,8 @@ The special code is a random string of numbers, and by default, it's 5 digits lo
 #File where the names with special number will upload
 file_path = 'names_SP.xlsx'
 ````
+
+
 
 ## Step 2: Scanner_QR_Code - File location where scans the QR
 [Scans the generated QR Code](https://github.com/Aleana-Beat0/Qr_Code/blob/main/BScanning_QR_Code/Actual_scanner.py)
